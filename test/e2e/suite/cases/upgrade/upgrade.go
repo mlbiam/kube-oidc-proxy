@@ -203,6 +203,7 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 				errCh <- err
 				return
 			}
+			defer resp.Body.Close()
 
 			// expect 200 resp and correct body
 			if resp.StatusCode != 200 {
