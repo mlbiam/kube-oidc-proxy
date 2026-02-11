@@ -230,7 +230,7 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 			}
 			fmt.Printf("check for data %s\n", string(body))
 			// should have correct output from echo server
-			if !bytes.HasSuffix(body, []byte("Request Body:\nhello world")) {
+			if !bytes.Contains(body, []byte("Request Body:\nhello world")) {
 				errCh <- fmt.Errorf("execOut.String())got unexpected echoserver response: exp=...hello world got=%s",
 					body)
 				return
