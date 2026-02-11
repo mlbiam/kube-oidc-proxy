@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"time"
 
-	jose "gopkg.in/square/go-jose.v2"
+	jose "go-jose/go-jose"
 	"k8s.io/client-go/rest"
 
 	"github.com/jetstack/kube-oidc-proxy/test/util"
