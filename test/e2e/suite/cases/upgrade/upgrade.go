@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -195,6 +196,9 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 
 			client := &http.Client{
 				Timeout: 10 * time.Second,
+				Transport: &http.Transport{
+					DisableKeepAlives: true,
+				},
 			}
 
 			// send message through port forward
@@ -204,6 +208,7 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 				return
 			}
 			defer resp.Body.Close()
+			_, _ = io.ReadAll(resp.Body)
 
 			// expect 200 resp and correct body
 			if resp.StatusCode != 200 {
