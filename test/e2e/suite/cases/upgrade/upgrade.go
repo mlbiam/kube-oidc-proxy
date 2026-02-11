@@ -181,7 +181,7 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 			restConfig: restConfig,
 		}
 
-		errCh := make(chan error,1)
+		errCh := make(chan error, 1)
 
 		go func() {
 			defer close(pfopts.stopCh)
