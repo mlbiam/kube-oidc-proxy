@@ -193,9 +193,12 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 
 			portInR := bytes.NewReader([]byte("hello world"))
 
+			client := &http.Client{
+				Timeout: 10 * time.Second,
+			}
+
 			// send message through port forward
-			resp, err := http.Post(
-				fmt.Sprintf("http://127.0.0.1:%s", freePort), "", portInR)
+			resp, err := client.Post(fmt.Sprintf("http://127.0.0.1:%s", freePort), "", portInR)
 			if err != nil {
 				errCh <- err
 				return
