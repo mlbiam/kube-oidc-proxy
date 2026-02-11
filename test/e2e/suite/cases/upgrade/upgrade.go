@@ -144,8 +144,8 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 		By(fmt.Sprintf("exec output %s/%s: %s", pod.Namespace, pod.Name, execOut.String()))
 
 		// should have correct stdout output from echo server
-		if !strings.HasSuffix(execOut.String(), "BODY:\nhello world") {
-			err := fmt.Errorf("got unexpected echoserver response: exp=...hello world got=%s",
+		if !strings.Contains(execOut.String(), "Request Body:\nhello world") {
+			err := fmt.Errorf("got unexpected echoserver response: exp=Request Body:\\nhello world got=%s",
 				execOut.String())
 			Expect(err).NotTo(HaveOccurred())
 		}
