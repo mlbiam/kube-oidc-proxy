@@ -46,7 +46,7 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 				Containers: []corev1.Container{
 					{
 						Name:            "echoserver",
-						Image:           "gcr.io/google_containers/echoserver:1.4",
+						Image:           "gcr.io/google_containers/echoserver:1.10",
 						ImagePullPolicy: corev1.PullIfNotPresent,
 					},
 				},
