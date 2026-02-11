@@ -40,7 +40,7 @@ func ParseTokenFromRequest(req *http.Request) (string, bool) {
 // signed by a generated key. This is useful for checking the status of a
 // signer.
 func FakeJWT(issuerURL string) (string, error) {
-	key := []byte("secret")
+	key := []byte("this-is-a-32-byte-long-secret-key!!!!")
 
 	sig, err := jose.NewSigner(
 		jose.SigningKey{Algorithm: jose.HS256, Key: key},
