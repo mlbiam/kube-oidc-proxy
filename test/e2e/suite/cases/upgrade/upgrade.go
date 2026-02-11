@@ -181,7 +181,7 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 			restConfig: restConfig,
 		}
 
-		errCh := make(chan error)
+		errCh := make(chan error,1)
 
 		go func() {
 			defer close(pfopts.stopCh)
@@ -228,7 +228,7 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 				errCh <- fmt.Errorf("failed to read body: %s", err)
 				return
 			}
-			fmt.Println("check for data %s", string(body))
+			fmt.Printf("check for data %s\n", string(body))
 			// should have correct output from echo server
 			if !bytes.HasSuffix(body, []byte("Request Body:\nhello world")) {
 				errCh <- fmt.Errorf("execOut.String())got unexpected echoserver response: exp=...hello world got=%s",
