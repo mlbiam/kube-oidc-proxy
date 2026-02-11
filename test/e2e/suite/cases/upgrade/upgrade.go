@@ -228,13 +228,14 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 				errCh <- fmt.Errorf("failed to read body: %s", err)
 				return
 			}
-
+			fmt.Println("check for data %s", string(body))
 			// should have correct output from echo server
 			if !bytes.HasSuffix(body, []byte("BODY:\nhello world")) {
 				errCh <- fmt.Errorf("execOut.String())got unexpected echoserver response: exp=...hello world got=%s",
 					body)
 				return
 			}
+			fmt.Println("after check")
 		}()
 
 		By("Running port forward")
