@@ -6,7 +6,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -202,22 +201,29 @@ var _ = framework.CasesDescribe("Upgrade", func() {
 			}
 
 			// send message through port forward
+			fmt.Println("Pre-post")
 			resp, err := client.Post(fmt.Sprintf("http://127.0.0.1:%s", freePort), "", portInR)
 			if err != nil {
 				errCh <- err
 				return
 			}
+			fmt.Println("pre defer")
 			defer resp.Body.Close()
-			_, _ = io.ReadAll(resp.Body)
+			fmt.Println("post defer")
+			//_, _ = io.ReadAll(resp.Body)
+			fmt.Println("drain body")
 
 			// expect 200 resp and correct body
+
 			if resp.StatusCode != 200 {
 				errCh <- fmt.Errorf("got unexpected response code from server, exp=200 got=%d",
 					resp.StatusCode)
 				return
 			}
 
-			body, err := ioutil.ReadAll(resp.Body)
+			fmt.Println("read data")
+			body, err := io.ReadAll(resp.Body)
+			fmt.Println("data read")
 			if err != nil {
 				errCh <- fmt.Errorf("failed to read body: %s", err)
 				return
