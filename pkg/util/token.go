@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"gopkg.in/square/go-jose.v2"
-	"gopkg.in/square/go-jose.v2/jwt"
+	"github.com/go-jose/go-jose/v4"
+    "github.com/go-jose/go-jose/v4/jwt"
 )
 
 // Return just the token from the header of the request, without 'bearer'.
@@ -56,5 +56,5 @@ func FakeJWT(issuerURL string) (string, error) {
 		Audience:  jwt.Audience(nil),
 	}
 
-	return jwt.Signed(sig).Claims(cl).CompactSerialize()
+	return jwt.Signed(sig).Claims(cl).Serialize()
 }
